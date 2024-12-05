@@ -1,6 +1,8 @@
+# Ignore IntelliJ and Android Studio project files
 *.iml
 .gradle
 /local.properties
+/.idea/
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
@@ -8,8 +10,51 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+
+# Build output
+/build/
+/captures/
+/.externalNativeBuild
+.cxx/
+
+# Local configuration
 local.properties
+
+# Gradle files and caches
+.gradle/
+/caches/
+/daemon/
+/wrapper/
+
+# Exclude JAR and ZIP files (large binaries)
+*.jar
+*.zip
+
+# Ignore Gradle wrapper files
+gradle/
+/wrapper/
+
+# Additional OS-generated files
+Thumbs.db
+*.log
+
+# Ignore Kotlin/Java compilation output
+*.class
+/build/
+/out/
+
+# Ignore generated files and logs
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignore test reports
+/test-results/
+*.xml
+*.html
+
+# Ignore Node.js dependencies if present
+node_modules/
+package-lock.json
+yarn.lock
