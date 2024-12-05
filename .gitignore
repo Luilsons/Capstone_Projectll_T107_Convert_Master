@@ -3,7 +3,7 @@
 .gradle
 /local.properties
 /.idea/
-/.idea/caches
+.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
@@ -13,8 +13,8 @@
 
 # Build output
 /build/
-/captures/
-/.externalNativeBuild
+captures/
+.externalNativeBuild
 .cxx/
 
 # Local configuration
@@ -22,9 +22,9 @@ local.properties
 
 # Gradle files and caches
 .gradle/
-/caches/
-/daemon/
-/wrapper/
+caches/
+daemon/
+wrapper/
 
 # Exclude JAR and ZIP files (large binaries)
 *.jar
@@ -32,7 +32,7 @@ local.properties
 
 # Ignore Gradle wrapper files
 gradle/
-/wrapper/
+wrapper/
 
 # Additional OS-generated files
 Thumbs.db
@@ -41,7 +41,7 @@ Thumbs.db
 # Ignore Kotlin/Java compilation output
 *.class
 /build/
-/out/
+out/
 
 # Ignore generated files and logs
 *.log
