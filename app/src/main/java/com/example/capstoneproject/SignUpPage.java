@@ -28,6 +28,7 @@ public class SignUpPage extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
 
+        // Initialize UI components
         EditText firstName = findViewById(R.id.firstname);
         EditText lastName = findViewById(R.id.lastname);
         EditText email = findViewById(R.id.email);
@@ -78,6 +79,7 @@ public class SignUpPage extends AppCompatActivity {
         });
     }
 
+    // Check if user already exists
     private boolean isDuplicateUser(String email) {
         for (HashMap<String, String> user : userList) {
             if (user.get("email").equalsIgnoreCase(email)) {

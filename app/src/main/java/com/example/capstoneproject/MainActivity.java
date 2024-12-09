@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // Initialize UI components
         EditText email = findViewById(R.id.email);
         EditText password = findViewById(R.id.password);
         Button login = findViewById(R.id.login);

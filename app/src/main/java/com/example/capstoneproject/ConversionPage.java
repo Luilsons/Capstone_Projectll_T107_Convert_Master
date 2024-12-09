@@ -1,5 +1,6 @@
 package com.example.capstoneproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -20,8 +23,12 @@ public class ConversionPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(MainActivity.TAG, "onCreate: Screen 2");
+
+        // Enable EdgeToEdge display
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_conversion_page);
 
+        // Initialize UI components
         EditText fromCurrency = findViewById(R.id.fromCurrency);
         EditText toCurrency = findViewById(R.id.toCurrency);
         EditText amount = findViewById(R.id.amount);

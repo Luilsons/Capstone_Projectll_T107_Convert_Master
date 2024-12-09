@@ -25,13 +25,17 @@ android {
             )
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 52683082 (Original Forms & Navigation)
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
+<<<<<<< HEAD
 repositories {
     google()
     mavenCentral()
@@ -39,10 +43,15 @@ repositories {
 
 dependencies {
     // Core Android Libraries
+=======
+dependencies {
+
+>>>>>>> 52683082 (Original Forms & Navigation)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+<<<<<<< HEAD
 
     // OkHttp for API calls
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
@@ -55,3 +64,9 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+=======
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+}
+>>>>>>> 52683082 (Original Forms & Navigation)
