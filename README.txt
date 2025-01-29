@@ -44,7 +44,6 @@ Features
 •	Conversion of foreign currency to Canadian currency.
 •	Unit of measure conversions.
 •	Real-time exchange rate retrieval using an external API.
-•	Secure transactions and payment options.
 •	User-friendly interface for seamless navigation.
 ________________________________________
 4.	Dependencies
@@ -60,7 +59,6 @@ ________________________________________
 Convert Master utilizes the following APIs and third-party services:
 •	Exchange Rate API - Fetches real-time exchange rates.
 •	Google Firebase - User authentication and data storage.
-•	Stripe - Secure payment processing.
 To ensure smooth functionality, keep the API keys updated and maintain the required libraries.
 ________________________________________
 6.	Features
@@ -69,9 +67,6 @@ User Authentication
 Conversion Services
 •	Supports multiple regional currencies and unit conversions.
 •	Real-time exchange rate retrieval.
-Payment Integration
-•	Secure transactions through Stripe API.
-•	View transaction history and saved payment methods.
 UI/UX Design
 •	Intuitive and user-friendly interface.
 •	Simple navigation for quick conversions.
