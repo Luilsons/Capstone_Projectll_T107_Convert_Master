@@ -1,6 +1,8 @@
 package com.example.capstoneproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,23 +16,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class SignUpPage extends AppCompatActivity {
-
-    private static ArrayList<HashMap<String, String>> userList = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(MainActivity.TAG, "Sign Up Screen");
+        Log.i(MainActivity.TAG, "onCreate: Screen 3");
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
 
-        // Initialize UI components
-        EditText firstName = findViewById(R.id.firstname);
-        EditText lastName = findViewById(R.id.lastname);
+        EditText firstname = findViewById(R.id.firstname);
+        EditText lastname = findViewById(R.id.lastname);
         EditText email = findViewById(R.id.email);
         EditText password = findViewById(R.id.password);
         Button signup = findViewById(R.id.signup);
@@ -41,55 +36,33 @@ public class SignUpPage extends AppCompatActivity {
             return insets;
         });
 
-        // Sign Up button logic
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String enteredFirstName = firstName.getText().toString().trim();
-                String enteredLastName = lastName.getText().toString().trim();
-                String enteredEmail = email.getText().toString().trim();
-                String enteredPassword = password.getText().toString().trim();
+                String firstNameText = firstname.getText().toString().trim();
+                String lastNameText = lastname.getText().toString().trim();
+                String emailText = email.getText().toString().trim();
+                String passwordText = password.getText().toString().trim();
 
-                if (enteredFirstName.isEmpty() || enteredLastName.isEmpty() || enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
-                    Toast.makeText(SignUpPage.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+                if (firstNameText.isEmpty() || lastNameText.isEmpty() || emailText.isEmpty() || passwordText.isEmpty()) {
+                    Toast.makeText(SignUpPage.this, "All fields must be filled!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (isDuplicateUser(enteredEmail)) {
-                    Toast.makeText(SignUpPage.this, "User already exists. Try logging in.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                // Store user credentials using SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("email", emailText);
+                editor.putString("password", passwordText);
+                editor.apply();
 
-                // Add user to the list
-                HashMap<String, String> newUser = new HashMap<>();
-                newUser.put("firstName", enteredFirstName);
-                newUser.put("lastName", enteredLastName);
-                newUser.put("email", enteredEmail);
-                newUser.put("password", enteredPassword);
+                Toast.makeText(SignUpPage.this, "Signup Successful! Please login.", Toast.LENGTH_SHORT).show();
 
-                userList.add(newUser);
-                Toast.makeText(SignUpPage.this, "Sign up successful! Please log in.", Toast.LENGTH_SHORT).show();
-
-                // Navigate back to MainActivity
+                // Redirect to login page (MainActivity)
                 Intent intent = new Intent(SignUpPage.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Clear activity stack
                 startActivity(intent);
-                finish(); // Close SignUpPage
+                finish(); // Close SignupPage
             }
         });
-    }
-
-    // Check if user already exists
-    private boolean isDuplicateUser(String email) {
-        for (HashMap<String, String> user : userList) {
-            if (user.get("email").equalsIgnoreCase(email)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static ArrayList<HashMap<String, String>> getUserList() {
-        return userList;
     }
 }

@@ -31,12 +31,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <EditText
-        android:id="@+id/fromCurrency"
+    <Spinner
+        android:id="@+id/fromCurrencyDropdown"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Please Enter From Currency"
-        android:inputType="text"/>
+        android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/toCurrency"
         android:layout_width="match_parent"
@@ -45,18 +43,10 @@
         android:focusableInTouchMode="false"
         android:hint="CAD"
         android:inputType="text"/>
-    <EditText
-        android:id="@+id/fromUnitOfMeasure"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Please Enter From Unit of Measure"
-        android:inputType="text"/>
-    <EditText
-        android:id="@+id/toUnitOfMeasure"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Please Enter To Unit of Measure"
-        android:inputType="text"/>
+    <Spinner
+        android:id="@+id/unitConversionDropdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <EditText
         android:id="@+id/amount"
         android:layout_width="match_parent"
@@ -75,4 +65,11 @@
         android:layout_gravity="center"
         android:textSize="24sp"
         android:text="Converted Amount: "/>
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center" />
 </LinearLayout>
