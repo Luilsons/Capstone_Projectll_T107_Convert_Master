@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,52 +14,112 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class SignUpPage extends AppCompatActivity {
+
+    EditText firstname, lastname, email, password, dob, street, postal;
+    Spinner countrySpinner, stateSpinner, citySpinner;
+    Button signup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(MainActivity.TAG, "onCreate: Screen 3");
+        Log.i(MainActivity.TAG, "onCreate: SignUpPage Loaded");
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
 
-        EditText firstname = findViewById(R.id.firstname);
-        EditText lastname = findViewById(R.id.lastname);
-        EditText email = findViewById(R.id.email);
-        EditText password = findViewById(R.id.password);
-        Button signup = findViewById(R.id.signup);
+        // Link views
+        firstname = findViewById(R.id.firstname);
+        lastname = findViewById(R.id.lastname);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        dob = findViewById(R.id.dob);
+        street = findViewById(R.id.street);
+        postal = findViewById(R.id.postal);
+        countrySpinner = findViewById(R.id.country_spinner);
+        stateSpinner = findViewById(R.id.state_spinner);
+        citySpinner = findViewById(R.id.city_spinner);
+        signup = findViewById(R.id.signup);
 
+        // Apply window insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String firstNameText = firstname.getText().toString().trim();
-                String lastNameText = lastname.getText().toString().trim();
-                String emailText = email.getText().toString().trim();
-                String passwordText = password.getText().toString().trim();
+        // Populate dropdowns
+        setupSpinners();
 
-                if (firstNameText.isEmpty() || lastNameText.isEmpty() || emailText.isEmpty() || passwordText.isEmpty()) {
-                    Toast.makeText(SignUpPage.this, "All fields must be filled!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        // Sign Up logic
+        signup.setOnClickListener(v -> handleSignup());
+    }
 
-                // Store user credentials using SharedPreferences
-                SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("email", emailText);
-                editor.putString("password", passwordText);
-                editor.apply();
+    private void setupSpinners() {
+        // Country
+        ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                new String[]{"Canada"});
+        countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        countrySpinner.setAdapter(countryAdapter);
 
-                Toast.makeText(SignUpPage.this, "Signup Successful! Please login.", Toast.LENGTH_SHORT).show();
+        // Province
+        ArrayAdapter<String> stateAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                new String[]{"Ontario", "Quebec", "British Columbia"});
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stateSpinner.setAdapter(stateAdapter);
 
-                // Redirect to login page (MainActivity)
-                Intent intent = new Intent(SignUpPage.this, MainActivity.class);
-                startActivity(intent);
-                finish(); // Close SignupPage
-            }
-        });
+        // City
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                new String[]{"Toronto", "Ottawa", "Mississauga"});
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinner.setAdapter(cityAdapter);
+    }
+
+    private void handleSignup() {
+        String firstNameText = firstname.getText().toString().trim();
+        String lastNameText = lastname.getText().toString().trim();
+        String emailText = email.getText().toString().trim();
+        String passwordText = password.getText().toString().trim();
+        String dobText = dob.getText().toString().trim();
+        String streetText = street.getText().toString().trim();
+        String postalText = postal.getText().toString().trim();
+        String country = countrySpinner.getSelectedItem().toString();
+        String state = stateSpinner.getSelectedItem().toString();
+        String city = citySpinner.getSelectedItem().toString();
+
+        if (firstNameText.isEmpty() || lastNameText.isEmpty() || emailText.isEmpty() ||
+                passwordText.isEmpty() || dobText.isEmpty() || streetText.isEmpty() || postalText.isEmpty()) {
+            Toast.makeText(this, "All fields must be filled!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Optional: Add format validation for DOB
+        if (!dobText.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            Toast.makeText(this, "DOB must be in format dd/mm/yyyy", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Save to SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("firstName", firstNameText);
+        editor.putString("lastName", lastNameText);
+        editor.putString("email", emailText);
+        editor.putString("password", passwordText);
+        editor.putString("dob", dobText);
+        editor.putString("street", streetText);
+        editor.putString("postal", postalText);
+        editor.putString("country", country);
+        editor.putString("state", state);
+        editor.putString("city", city);
+        editor.apply();
+
+        Toast.makeText(this, "Signup Successful! Please login.", Toast.LENGTH_SHORT).show();
+
+        // Navigate to login page
+        startActivity(new Intent(SignUpPage.this, MainActivity.class));
+        finish();
     }
 }
