@@ -22,7 +22,7 @@ public class SignUpPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(MainActivity.TAG, "onCreate: SignUpPage Loaded");
+        Log.i("SignUpPage", "onCreate: SignUpPage Loaded");
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
@@ -47,10 +47,8 @@ public class SignUpPage extends AppCompatActivity {
             return insets;
         });
 
-        // Populate dropdowns
         setupSpinners();
 
-        // Sign Up logic
         signup.setOnClickListener(v -> handleSignup());
     }
 
@@ -95,7 +93,6 @@ public class SignUpPage extends AppCompatActivity {
             return;
         }
 
-        // Optional: Add format validation for DOB
         if (!dobText.matches("\\d{2}/\\d{2}/\\d{4}")) {
             Toast.makeText(this, "DOB must be in format dd/mm/yyyy", Toast.LENGTH_SHORT).show();
             return;
@@ -116,10 +113,11 @@ public class SignUpPage extends AppCompatActivity {
         editor.putString("city", city);
         editor.apply();
 
-        Toast.makeText(this, "Signup Successful! Please login.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Signup Successful! Redirecting to Profile Page.", Toast.LENGTH_SHORT).show();
 
-        // Navigate to login page
-        startActivity(new Intent(SignUpPage.this, MainActivity.class));
+        // 🔄 Navigate to Profile Page (not login)
+        Intent intent = new Intent(SignUpPage.this, ProfilePage.class);
+        startActivity(intent);
         finish();
     }
 }
